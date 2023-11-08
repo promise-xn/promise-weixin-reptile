@@ -68,6 +68,12 @@ public class ReptileController {
         ImageIO.write(image, "jpg", stream);
     }
 
+    /**
+     * 查询登录状态
+     * @author xunuo
+     * @date 10:41 2023/11/8
+     * @param cookie
+     **/
     @RequestMapping("/askQRCode")
     public void askQRCode(String cookie) throws IOException{
         WxResultBody askQrCode = WeiXinApi.askQRCode();
@@ -84,21 +90,35 @@ public class ReptileController {
         String token = loginRes.get("token");
         //设置全局token值
         MyCookieStore.setToken(token);
+        // TODO 把token持久化
         redisCache.setCacheObject("token",token);
         System.out.println("---恭喜你，登录成功！");
     }
 
+    /**
+     * 爬取
+     * @author xunuo
+     * @date 10:43 2023/11/8
+     **/
     @RequestMapping("/article")
-    public void article() throws IOException {
+    public Resp article() throws IOException {
+        String token = redisCache.getCacheObject("token");
+        if (token==null){
+            return Resp.error("token不存在");
+        }
+        MyCookieStore.setToken(token);
         while (true) {
             String gzName = "劳动午报";
             // TODO 公众号写死遍历搜索，默认都选 1
             // TODO 遍历搜索时，线程sleep5-10s后再进行下一条
             WxResultBody<List<BizData>> searchBiz = WeiXinApi.searchBiz(gzName);
+            if (StringUtils.isNotEmpty(searchBiz.getErr_msg())){
+                return Resp.error("cookie已失效，请重新登录！");
+            }
             System.out.println("----请按序号选择公众号");
             List<BizData> list = searchBiz.getList();
             if (list.size()<=0){
-                return;
+                return Resp.error("未找到该公众号");
             }
             BizData select = list.get(0);
             System.out.println(String.format("--好的，开始搜索【%s】的文章...", select.getNickname()));
@@ -120,7 +140,7 @@ public class ReptileController {
                 }
 
             }
-            return;
+            return Resp.success();
         }
 
 
