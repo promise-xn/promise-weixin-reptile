@@ -56,67 +56,42 @@ public class ReptileController {
     public void getImage(HttpServletResponse resp) throws IOException {
         // 1. POST请求开始登录接口，初始化cookie
         redisCache.deleteObject("cookie");
+        redisCache.deleteObject("token");
         String sessionid = "" + System.currentTimeMillis() + (int)(Math.random()*100);
         WxResultBody wxResultBody = WeiXinApi.startLogin(sessionid);
         System.out.println("---请求开始登录接口 返回结果:" + wxResultBody.toString());
-
         // 2. 请求获取二维码图片接口，得到流
         InputStream inputStream = WeiXinApi.getQRCode();
         // 从输入流中读取图片数据
         BufferedImage image = ImageIO.read(inputStream);
-
-        // TODO 将图片写入到文件中(后期更换存储位置)
-//        String pathLocal = "D:/myGitProject/weixin-api-reptile/src/main/resources/";
-//        String pathLocal = this.getClass().getClassLoader().getResource("wxImage").getPath();
-        // TODO 文件存入服务器后，给前端返回uuid，sessionId
-//        UUID uuid = UUID.randomUUID();
-//        File outputFile = new File(pathLocal+"/"+uuid +".jpg");
         ServletOutputStream stream = resp.getOutputStream();
         ImageIO.write(image, "jpg", stream);
-        //转成图片显示
-//        resp.setContentType("image/jpg");
-//        Path path = Paths.get(pathLocal+"/"+uuid +".jpg");
-//        byte[] imageData = Files.readAllBytes(path);
-//        outputFile.delete();
-//        // 构建响应实体，设置媒体类型为图片的MIME类型（如image/jpeg）
-//        ResponseEntity<byte[]> response = ResponseEntity.ok()
-//            .contentType(MediaType.IMAGE_JPEG) // 根据实际图片格式设置相应的MIME类型，如image/jpeg, image/png等
-//            .body(imageData);
     }
 
-    @RequestMapping("/bizLogin")
-    public void bizLogin(String cookie) throws IOException {
-
-        WxResultBody<List<BizData>> searchBiz1 = WeiXinApi.searchBiz("中工");
-        if (StringUtils.isNotEmpty(searchBiz1.getErr_msg())){
-            WxResultBody askQrCode = WeiXinApi.askQRCode();
-            Integer status = askQrCode.getStatus();
-            if (status != 1) {
-                return;
-            }
-
-            WxResultBody bizlogin = WeiXinApi.bizlogin();
-            //重定向地址
-            String redirect_url = bizlogin.getRedirect_url();
-            //解析成键值对
-            Map<String, String> loginRes = HttpUtils.parseQueryParams(redirect_url);
-            //得到token
-            String token = loginRes.get("token");
-            //设置全局token值
-            MyCookieStore.setToken(token);
-
-            System.out.println("---恭喜你，登录成功！");
+    @RequestMapping("/askQRCode")
+    public void askQRCode(String cookie) throws IOException{
+        WxResultBody askQrCode = WeiXinApi.askQRCode();
+        Integer status = askQrCode.getStatus();
+        if (status != 1) {
+            return;
         }
+        WxResultBody bizlogin = WeiXinApi.bizlogin();
+        //重定向地址
+        String redirect_url = bizlogin.getRedirect_url();
+        //解析成键值对
+        Map<String, String> loginRes = HttpUtils.parseQueryParams(redirect_url);
+        //得到token
+        String token = loginRes.get("token");
+        //设置全局token值
+        MyCookieStore.setToken(token);
+        redisCache.setCacheObject("token",token);
+        System.out.println("---恭喜你，登录成功！");
+    }
 
-
-        // ok
-
-
+    @RequestMapping("/article")
+    public void article() throws IOException {
         while (true) {
-
             String gzName = "劳动午报";
-
-
             // TODO 公众号写死遍历搜索，默认都选 1
             // TODO 遍历搜索时，线程sleep5-10s后再进行下一条
             WxResultBody<List<BizData>> searchBiz = WeiXinApi.searchBiz(gzName);
