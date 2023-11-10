@@ -1,4 +1,4 @@
-package com.example.weixinapireptile.enums;
+package com.example.weixinapireptile.common.enums;
 
 /**
  * @author zsq

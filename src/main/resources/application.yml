@@ -1,4 +1,17 @@
+server:
+  port: 8088
+
 spring:
+  application:
+    name: promise-weixin-reptile
+  datasource:
+    username: root
+    password:
+    url: jdbc:mysql://127.0.0.1:3306/web_extractor?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
   redis:
     database: 0
     host: 127.0.0.1
@@ -12,4 +25,8 @@ spring:
         min-idle: 0
     timeout: 10000
 
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  #configuration:
+  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

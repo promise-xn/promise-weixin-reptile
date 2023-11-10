@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.weixinapireptile.mapper.WxArticleMapper">
+    <resultMap id="WxArticleVO" type="com.example.weixinapireptile.pojo.vo.WxArticleVO">
+        <id property="id" column="id"/>
+        <result property="classifyId" column="classify_id"/>
+        <result property="classifyName" column="classify_name"/>
+        <result property="publishDate" column="publish_date"/>
+        <result property="title" column="title"/>
+        <result property="coverImage" column="cover_image"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="listWxArticleVo" resultMap="WxArticleVO">
+        select
+        a.id,
+        a.classify_id,
+        ac.classify_name,
+        a.publish_date,
+        a.title,
+        a.link,
+        a.cover_image,
+        a.create_time
+        from wx_article as a
+        left join wx_article_classify as ac on ac.id = a.classify_id
+        <where>
+            <if test="classifyId != null and classifyId != ''">
+                AND a.classify_id = #{classifyId}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (MATCH(a.title) against(#{keyword}) OR MATCH(a.content) against(#{keyword}))
+            </if>
+        </where>
+        order by a.publish_date desc
+    </select>
+
+    <select id="getWxArticleById" resultMap="WxArticleVO">
+        select
+        a.id,
+        a.classify_id,
+        ac.classify_name,
+        a.publish_date,
+        a.title,
+        a.link,
+        a.content,
+        a.cover_image,
+        a.create_time
+        from wx_article as a
+        left join wx_article_classify as ac on ac.id = a.classify_id
+        <where>
+            <if test="id != null and id != ''">
+                AND a.id = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>

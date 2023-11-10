@@ -1,6 +1,6 @@
-package com.example.weixinapireptile.utils;
+package com.example.weixinapireptile.common.utils;
 
-import com.example.weixinapireptile.okhttp.MyOkHttpClient;
+import com.example.weixinapireptile.common.okhttp.MyOkHttpClient;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;

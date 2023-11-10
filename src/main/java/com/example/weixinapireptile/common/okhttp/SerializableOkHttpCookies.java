@@ -1,4 +1,4 @@
-package com.example.weixinapireptile.okhttp;
+package com.example.weixinapireptile.common.okhttp;
 
 import okhttp3.Cookie;
 

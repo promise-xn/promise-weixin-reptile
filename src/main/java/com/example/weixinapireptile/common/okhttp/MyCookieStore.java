@@ -1,23 +1,14 @@
-package com.example.weixinapireptile.okhttp;
+package com.example.weixinapireptile.common.okhttp;
 
 import com.example.weixinapireptile.api.RedisCache;
-import com.example.weixinapireptile.utils.BeanUtils;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.example.weixinapireptile.common.utils.BeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import com.example.weixinapireptile.utils.JsonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 

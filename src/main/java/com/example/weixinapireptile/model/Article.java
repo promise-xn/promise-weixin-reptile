@@ -1,10 +1,13 @@
 package com.example.weixinapireptile.model;
 
+import lombok.Data;
+
 /**
  * 文章数据
  * @author zsq
  * @date 2021/3/31 - 21:54
  */
+@Data
 public class Article {
 
     /**
@@ -27,29 +30,5 @@ public class Article {
 
 
 
-    //...还有很多参数
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "title='" + title + '\'' +
-                "link='" + link + '\'' +
-                '}';
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.weixinapireptile.api;
+package com.example.weixinapireptile.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurerSupport;

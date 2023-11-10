@@ -1,17 +1,15 @@
 package com.example.weixinapireptile.api;
 
 import com.example.weixinapireptile.model.WxResultBody;
-import com.example.weixinapireptile.utils.HttpUtils;
+import com.example.weixinapireptile.common.utils.HttpUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.lang3.StringUtils;
-import com.example.weixinapireptile.enums.WxResultStatus;
-import com.example.weixinapireptile.exceptions.WxApiException;
+import com.example.weixinapireptile.common.enums.WxResultStatus;
+import com.example.weixinapireptile.common.exceptions.WxApiException;
 import com.example.weixinapireptile.model.Article;
 import com.example.weixinapireptile.model.BizData;
-import com.example.weixinapireptile.model.WxResultBody;
-import com.example.weixinapireptile.okhttp.MyCookieStore;
-import com.example.weixinapireptile.utils.HttpUtils;
-import com.example.weixinapireptile.utils.JsonUtils;
+import com.example.weixinapireptile.common.okhttp.MyCookieStore;
+import com.example.weixinapireptile.common.utils.JsonUtils;
 
 import java.io.InputStream;
 import java.util.HashMap;

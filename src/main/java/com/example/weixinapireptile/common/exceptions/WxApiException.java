@@ -1,6 +1,6 @@
-package com.example.weixinapireptile.exceptions;
+package com.example.weixinapireptile.common.exceptions;
 
-import com.example.weixinapireptile.enums.WxResultStatus;
+import com.example.weixinapireptile.common.enums.WxResultStatus;
 
 /**
  * @author zsq

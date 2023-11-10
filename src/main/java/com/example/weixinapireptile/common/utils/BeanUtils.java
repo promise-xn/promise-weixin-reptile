@@ -1,5 +1,4 @@
-package com.example.weixinapireptile.utils;
-
+package com.example.weixinapireptile.common.utils;
 
 
 import org.springframework.beans.BeansException;
