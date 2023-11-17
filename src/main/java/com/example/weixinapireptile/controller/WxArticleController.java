@@ -78,6 +78,7 @@ public class WxArticleController extends BaseController {
      * @date 10:41 2023/11/8
      * @param cookie
      **/
+    @ApiOperation(value = "查询登录状态")
     @RequestMapping("/askQRCode")
     public Result askQRCode(String cookie) throws IOException{
         WxResultBody askQrCode = WeiXinApi.askQRCode();
