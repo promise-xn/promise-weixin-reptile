@@ -44,15 +44,6 @@ public class WxArticleServiceImpl extends ServiceImpl<WxArticleMapper, WxArticle
     @Override
     public void reptileWxArticle() {
         try {
-            WxResultBody bizLogin = WeiXinApi.bizlogin();
-            //重定向地址
-            String redirectUrl = bizLogin.getRedirect_url();
-            //解析成键值对
-            Map<String, String> loginRes = HttpUtils.parseQueryParams(redirectUrl);
-            //得到token
-            String token = loginRes.get("token");
-            //设置全局token值
-            MyCookieStore.setToken(token);
             // ok
             List<WxArticleClassify> classifyList = articleClassifyService.list();
             if (CollUtil.isNotEmpty(classifyList)){

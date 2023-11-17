@@ -14,6 +14,7 @@ import com.example.weixinapireptile.common.utils.HttpUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,13 +79,16 @@ public class WxArticleController extends BaseController {
      * @param cookie
      **/
     @RequestMapping("/askQRCode")
-    public void askQRCode(String cookie) throws IOException{
+    public Result askQRCode(String cookie) throws IOException{
         WxResultBody askQrCode = WeiXinApi.askQRCode();
         Integer status = askQrCode.getStatus();
         if (status != 1) {
-            return;
+            return Result.failed("用户未登录！");
         }
         WxResultBody bizlogin = WeiXinApi.bizlogin();
+        if (StringUtils.isNotEmpty(bizlogin.getErr_msg())){
+            return Result.failed("登陆失败！");
+        }
         //重定向地址
         String redirect_url = bizlogin.getRedirect_url();
         //解析成键值对
@@ -95,7 +99,7 @@ public class WxArticleController extends BaseController {
         MyCookieStore.setToken(token);
         // TODO 把token持久化
         redisCache.setCacheObject("token",token);
-        System.out.println("---恭喜你，登录成功！");
+        return Result.success();
     }
 
     /**
@@ -104,8 +108,8 @@ public class WxArticleController extends BaseController {
      * @date 15:42 2023/11/3
      * @return org.extractor.common.result.Result
      **/
-    @ApiOperation(value = "验证登录开始爬取数据")
-    @PostMapping("/bizLogin")
+    @ApiOperation(value = "开始爬取数据")
+    @PostMapping("/start")
     public Result bizLogin() {
         String token = redisCache.getCacheObject("token");
         if (token==null){

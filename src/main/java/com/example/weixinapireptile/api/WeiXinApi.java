@@ -157,7 +157,7 @@ public class WeiXinApi {
         Map<String, String> params = new HashMap<>(10);
         params.put("action", "list_ex");
         params.put("begin", "0");
-        params.put("count", "1");
+        params.put("count", "10");
         params.put("fakeid", fakeid);
         params.put("token", MyCookieStore.getToken());
         params.put("type", "9");

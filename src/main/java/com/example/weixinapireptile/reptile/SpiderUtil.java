@@ -112,7 +112,7 @@ public class SpiderUtil {
             // 文章标题
             String title = document.getElementById("activity-name").html();
             // 文章内容
-            Element content = document.getElementsByClass("autoTypeSetting24psection").get(0);
+            Element content = document.getElementsByClass("rich_media_area_primary").get(0);
 
             Elements elements = content.select("*");
             for (Element element : elements) {

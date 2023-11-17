@@ -4,19 +4,22 @@ server:
 spring:
   application:
     name: promise-weixin-reptile
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   datasource:
     username: root
-    password:
-    url: jdbc:mysql://127.0.0.1:3306/web_extractor?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull
+    password: 123456
+    url: jdbc:mysql://47.93.190.176:3306/promise_wx_reptile?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull
     driver-class-name: com.mysql.cj.jdbc.Driver
   jackson:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
   redis:
-    database: 0
-    host: 127.0.0.1
+    host: 47.93.190.176
     port: 6379
-    password:
+    password: 123456
+    database: 0
     jedis:
       pool:
         max-active: 8
@@ -27,6 +30,11 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
-  #configuration:
-  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.example.weixinapireptile: debug
+    com.baomidou.mybatisplus: debug
+    org.springframework: warn
