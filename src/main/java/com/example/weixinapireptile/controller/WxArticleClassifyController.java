@@ -1,7 +1,9 @@
 package com.example.weixinapireptile.controller;
 
 import com.example.weixinapireptile.common.base.BaseController;
+import com.example.weixinapireptile.common.result.PageResult;
 import com.example.weixinapireptile.common.result.Result;
+import com.example.weixinapireptile.pojo.entity.WxArticleClassify;
 import com.example.weixinapireptile.pojo.query.WxArticleClassifyQuery;
 import com.example.weixinapireptile.pojo.vo.WxArticleClassifyVO;
 import com.example.weixinapireptile.service.IWxArticleClassifyService;
@@ -31,8 +33,9 @@ public class WxArticleClassifyController extends BaseController {
 
     @GetMapping("/pages")
     @ApiOperation(value = "分页列表")
-    public Result<List<WxArticleClassifyVO>> list(WxArticleClassifyQuery wxArticleClassifyQuery) {
-        return Result.success(wxArticleClassifyService.WxArticleClassifyList(wxArticleClassifyQuery));
+    public PageResult<WxArticleClassify> list(WxArticleClassifyQuery wxArticleClassifyQuery) {
+        startPage();
+        return PageResult.success(wxArticleClassifyService.WxArticleClassifyList(wxArticleClassifyQuery));
     }
 
 

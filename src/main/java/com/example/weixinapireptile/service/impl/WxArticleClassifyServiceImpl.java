@@ -19,7 +19,7 @@ import java.util.List;
 public class WxArticleClassifyServiceImpl extends ServiceImpl<WxArticleClassifyMapper, WxArticleClassify> implements IWxArticleClassifyService {
 
     @Override
-    public List<WxArticleClassifyVO> WxArticleClassifyList(WxArticleClassifyQuery wxArticleClassifyQuery) {
-        return null;
+    public List<WxArticleClassify> WxArticleClassifyList(WxArticleClassifyQuery wxArticleClassifyQuery) {
+        return this.list();
     }
 }

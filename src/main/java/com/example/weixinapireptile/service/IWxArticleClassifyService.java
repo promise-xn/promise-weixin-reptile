@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface IWxArticleClassifyService extends IService<WxArticleClassify> {
 
-    List<WxArticleClassifyVO> WxArticleClassifyList(WxArticleClassifyQuery wxArticleClassifyQuery);
+    List<WxArticleClassify> WxArticleClassifyList(WxArticleClassifyQuery wxArticleClassifyQuery);
 
 }
