@@ -22,4 +22,9 @@ public class WxArticleClassifyServiceImpl extends ServiceImpl<WxArticleClassifyM
     public List<WxArticleClassify> WxArticleClassifyList(WxArticleClassifyQuery wxArticleClassifyQuery) {
         return this.list();
     }
+
+    @Override
+    public boolean addWxArticleClassify(WxArticleClassify wxArticleClassify) {
+        return this.save(wxArticleClassify);
+    }
 }

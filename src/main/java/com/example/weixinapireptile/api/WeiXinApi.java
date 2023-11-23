@@ -166,10 +166,6 @@ public class WeiXinApi {
         params.put("f", "json");
         params.put("ajax", "1");
         String listEx = HttpUtils.doGet(URL_MAP.get("findListEx"), params);
-//        System.out.println("文章主要信息数据--------------------"+listEx);
-//        WxResultBody<List<Article>> wxResultBody = parseWxResultBody(HttpUtils.doGet(URL_MAP.get("findListEx"), params),
-//                new TypeReference<WxResultBody<List<Article>>>() {}
-//        );
 
         WxResultBody<List<Article>> wxResultBody = parseWxResultBody(listEx,
             new TypeReference<WxResultBody<List<Article>>>() {}

@@ -11,9 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +34,18 @@ public class WxArticleClassifyController extends BaseController {
     public PageResult<WxArticleClassify> list(WxArticleClassifyQuery wxArticleClassifyQuery) {
         startPage();
         return PageResult.success(wxArticleClassifyService.WxArticleClassifyList(wxArticleClassifyQuery));
+    }
+
+    @PostMapping("/add")
+    @ApiOperation(value = "新增公众号")
+    public Result add(WxArticleClassify wxArticleClassify) {
+        return wxArticleClassifyService.addWxArticleClassify(wxArticleClassify)? Result.success("新增成功！"):Result.failed("新增失败！");
+    }
+
+    @RequestMapping("/del/{id}")
+    @ApiOperation(value = "删除分类")
+    public Result del(@PathVariable String id){
+        return wxArticleClassifyService.removeById(id)? Result.success("删除成功！"):Result.failed("删除失败！");
     }
 
 

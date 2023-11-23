@@ -76,11 +76,10 @@ public class WxArticleController extends BaseController {
      * 查询登录状态
      * @author xunuo
      * @date 10:41 2023/11/8
-     * @param cookie
      **/
     @ApiOperation(value = "查询登录状态")
     @RequestMapping("/askQRCode")
-    public Result askQRCode(String cookie) throws IOException{
+    public Result askQRCode() throws IOException{
         WxResultBody askQrCode = WeiXinApi.askQRCode();
         Integer status = askQrCode.getStatus();
         if (status != 1) {
@@ -114,7 +113,7 @@ public class WxArticleController extends BaseController {
     public Result bizLogin() {
         String token = redisCache.getCacheObject("token");
         if (token==null){
-            return Result.failed("token不存在");
+            return Result.failed("请先扫码登录！");
         }
         MyCookieStore.setToken(token);
         wxArticleService.reptileWxArticle();

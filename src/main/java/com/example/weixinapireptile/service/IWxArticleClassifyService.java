@@ -16,4 +16,6 @@ public interface IWxArticleClassifyService extends IService<WxArticleClassify> {
 
     List<WxArticleClassify> WxArticleClassifyList(WxArticleClassifyQuery wxArticleClassifyQuery);
 
+    boolean addWxArticleClassify(WxArticleClassify wxArticleClassify);
+
 }

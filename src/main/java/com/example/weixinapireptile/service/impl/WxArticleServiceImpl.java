@@ -24,6 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,8 +63,8 @@ public class WxArticleServiceImpl extends ServiceImpl<WxArticleMapper, WxArticle
                         WxArticle selectOne = baseMapper.selectOne(new LambdaQueryWrapper<WxArticle>()
                                 .eq(WxArticle::getTitle, article.getTitle()).eq(WxArticle::getLink, article.getLink()));
                         if (ObjectUtil.isEmpty(selectOne)){
-                            SimpleDateFormat dateForMonth = new SimpleDateFormat("yyyy-MM-dd");
-                            String format = dateForMonth.format(article.getCreate_time());
+
+                            LocalDate localDateTime = LocalDateTime.ofEpochSecond(article.getCreate_time(), 0, ZoneOffset.ofHours(8)).toLocalDate();
                             String content = SpiderUtil.getContent(article.getLink());
                             // 持久化入库
                             WxArticle wxArticle = new WxArticle();
@@ -68,7 +72,7 @@ public class WxArticleServiceImpl extends ServiceImpl<WxArticleMapper, WxArticle
                             wxArticle.setLink(article.getLink());
                             wxArticle.setCoverImage(article.getCover());
                             wxArticle.setClassifyId(classify.getId());
-                            wxArticle.setPublishDate(format);
+                            wxArticle.setPublishDate(localDateTime.toString());
                             wxArticle.setContent(content);
                             baseMapper.insert(wxArticle);
                         }
