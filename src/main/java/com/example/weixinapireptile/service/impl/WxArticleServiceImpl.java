@@ -53,6 +53,7 @@ public class WxArticleServiceImpl extends ServiceImpl<WxArticleMapper, WxArticle
             if (CollUtil.isNotEmpty(classifyList)){
                 for (WxArticleClassify classify : classifyList) {
                     WxResultBody<List<BizData>> searchBiz = WeiXinApi.searchBiz(classify.getClassifyName());
+
                     List<BizData> list = searchBiz.getList();
                     if (list.size() <= 0) {
                         throw new BizException("公众号:"+classify.getClassifyName()+"不存在");
