@@ -59,7 +59,6 @@ public class WxArticleController extends BaseController {
         // 1. POST请求开始登录接口，初始化cookie
         String sessionid = "" + System.currentTimeMillis() + (int) (Math.random() * 100);
         WxResultBody wxResultBody = WeiXinApi.startLogin(sessionid);
-        System.out.println("---请求开始登录接口 返回结果:" + wxResultBody.toString());
         // 2. 请求获取二维码图片接口，得到流
         InputStream inputStream = WeiXinApi.getQRCode();
         // 从输入流中读取图片数据

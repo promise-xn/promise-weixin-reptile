@@ -11,6 +11,10 @@ import lombok.Data;
 public class Article {
 
     /**
+     * aid
+     **/
+    private String aid;
+    /**
      * 标题
      **/
     private String title;

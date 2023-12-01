@@ -47,7 +47,6 @@ public class HttpUtils {
         Response response = null;
         try {
             response = client.newCall(request).execute();
-            System.out.println("request------------"+request.toString());
             if (!response.isSuccessful()) {
                 throw new RuntimeException("请求不成功" + response.toString());
             }
