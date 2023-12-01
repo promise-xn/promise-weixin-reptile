@@ -68,6 +68,7 @@ public class WxArticleServiceImpl extends ServiceImpl<WxArticleMapper, WxArticle
                             String content = SpiderUtil.getContent(article.getLink());
                             // 持久化入库
                             WxArticle wxArticle = new WxArticle();
+                            wxArticle.setId(article.getAid());
                             wxArticle.setTitle(article.getTitle());
                             wxArticle.setLink(article.getLink());
                             wxArticle.setCoverImage(article.getCover());
