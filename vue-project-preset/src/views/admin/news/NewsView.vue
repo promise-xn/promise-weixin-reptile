@@ -167,7 +167,7 @@ export default {
       console.log(row.id);
       // let url = 'http://localhost:8088/reptile/wxArticle/'+row.id;
       this.$router.push({
-        path: 'newsDetail',
+        path: 'detail',
         query: {
           id: row.id,
         }

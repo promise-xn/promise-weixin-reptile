@@ -19,7 +19,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      detail: {},
       id: '',
       htmlContent: ''
     };
@@ -35,9 +34,7 @@ export default {
       let url = 'http://localhost:8088/reptile/wxArticle/'+this.id;
       axios.get(url)
       .then(resp=>{
-        this.detail = resp.data.data;
         this.htmlContent = resp.data.data.content;
-        console.log(this.detail())
       })
     },
   }

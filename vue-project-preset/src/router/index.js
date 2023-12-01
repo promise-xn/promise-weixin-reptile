@@ -28,7 +28,7 @@ const routes = [
         component:()=>import('../views/admin/news/NewsView')
       },
       {
-        path:'newsDetail',
+        path:'detail',
         component:()=>import('../views/admin/news/NewsDetailView')
       }
     ]
